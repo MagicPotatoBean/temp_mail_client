@@ -18,11 +18,9 @@ async fn main() {
     loop {
         let messages = tempmail.get_messages().await;
         if let Ok(messages) = messages {
-            println!("Successfully fetched mail.");
-            for (index, message) in messages.into_iter().enumerate() {
-                println!("Message {index}");
+            for message in messages {
                 if !message_vec.contains(&message) {
-                    println!("Message");
+                    println!("----- New message -----");
                     println!("Id: {}", message.id);
                     println!("From: {}", message.from);
                     println!("Subject: {}", message.subject);
@@ -59,7 +57,7 @@ fn spawn_stdin() -> Receiver<String> {
 fn menu() -> (String, Domain) {
     println!("Random email, or specific email?");
     'menu: loop {
-        println!("1) Random");
+        println!("1) Random - Recommended");
         println!("2) Specific");
         print!("Selection: ");
         let _ = std::io::stdout().flush();
